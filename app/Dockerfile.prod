@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:18 AS builder
 
 WORKDIR /usr/src/app
 
@@ -17,6 +17,16 @@ RUN apt-get update \
     && wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin \
     && apt-get autoremove -yqq --purge wget \
     && rm -rf /var/lib/apt/lists/*
+
+#EXPOSE 3000
+
+#ENTRYPOINT [ "node", "index.js" ]
+
+FROM node:18-alpine3.19
+WORKDIR /usr/src/app
+#RUN rm -rf /var/www/html
+COPY --from=builder /usr/src/app .
+#RUN chown -R www-data:www-data usr/src/app
 
 EXPOSE 3000
 
