@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: app
+      context: ./app
       dockerfile: Dockerfile.prod
     container_name: app
     entrypoint: dockerize -wait tcp://db:3306 -timeout 60s node index.js
@@ -33,7 +33,7 @@ services:
   nginx:
     build:
       context: ./nginx
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     container_name: nginx
     ports:
       - "8085:80"

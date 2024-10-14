@@ -6,4 +6,5 @@ COPY ./nginx.conf /etc/nginx/conf.d/
 
 RUN mkdir /var/www/html -p && touch /var/www/html/index.php
 
+CMD ["nginx", "-g", "daemon off;"]
 #FROM nginx:1.27.0-alpine
