@@ -11,7 +11,7 @@ services:
       - ./app:/usr/src/app
     ports:
       - 3000:3000
-    command: /bin/bash -c "npm install && npm install mysql && npm install express -y --save && npm start"
+    command: /bin/bash -c "npm install && npm install mysql && npm install express -y --save && node index"
     tty: true
     depends_on:
       - db
