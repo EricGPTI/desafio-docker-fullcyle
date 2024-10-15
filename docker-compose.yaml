@@ -7,15 +7,15 @@ services:
     entrypoint: dockerize -wait tcp://db:3306 -timeout 60s
     networks:
       - nn-network
-    volumes: 
+    volumes:
       - ./app:/usr/src/app
     ports:
       - 3000:3000
-    command: /bin/bash -c "npm install && npm install mysql && npm install express -y --save && node index"
+    command: sh -c "npm install && npm install mysql && npm install express -y --save && node index.js"
     tty: true
     depends_on:
       - db
-  
+
   db:
     image: mysql:5.7
     container_name: mysql_db
@@ -47,4 +47,3 @@ services:
 networks:
   nn-network:
     driver: bridge
-
