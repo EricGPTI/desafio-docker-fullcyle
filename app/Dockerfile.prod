@@ -4,19 +4,9 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-#COPY package*.json /usr/src/app 
-
 RUN npm install
 RUN npm install mysql
 RUN npm install express -y --save
-
-#ENV DOCKERIZE_VERSION v0.7.0
-
-#RUN apt-get update \
-#    && apt-get install -y wget \
-#    && wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin \
-#    && apt-get autoremove -yqq --purge wget \
-#    && rm -rf /var/lib/apt/lists/*
 
 FROM node:18-alpine3.19
 WORKDIR /usr/src/app
@@ -27,9 +17,6 @@ RUN apk update --no-cache \
     && apk add --no-cache wget openssl \
     && wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin \
     && apk del wget
-#RUN rm -rf /var/www/html
 COPY --from=builder /usr/src/app .
-
-#EXPOSE 3000
 
 ENTRYPOINT [ "node", "index.js" ]

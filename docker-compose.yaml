@@ -11,13 +11,13 @@ services:
       - ./app:/usr/src/app
     ports:
       - 3000:3000
+    command: /bin/bash - c"npm install && npm install mysql && npm install express -y --save && npm start"
     tty: true
     depends_on:
       - db
   
   db:
     image: mysql:5.7
-    #command: --innodb-use-native-aio=0
     container_name: mysql_db
     restart: always
     volumes:
